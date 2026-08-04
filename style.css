@@ -1,0 +1,620 @@
+/* ==========================================================================
+   single-casino-review-hub — dark premium green design system
+   Reference character: Italian ADM-style single-brand casino info hub.
+   Near-black warm page, deep-green header/footer, mint pill CTAs,
+   striped data tables with light borders, grey-green nav surfaces.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+:root {
+  /* palette (observed) */
+  --bg: #1e1b1b;
+  --text: #fefefe;
+  --text-dim: #c9d4cc;
+  --header-bg: #093e2f;
+  --footer-bg: #032b1c;
+  --cta: #99fe9a;
+  --cta-text: #000201;
+  --cta-secondary: #ecff93;
+  --row-even: #10271f;
+  --row-odd: #46584d;
+  --table-border: #fefeff;
+  --surface: #49564b;
+  --surface-deep: #0d2018;
+  --accent-line: rgba(153, 254, 154, 0.35);
+
+  /* typography */
+  --font-body: 'DM Sans', Verdana, Geneva, sans-serif;
+
+  /* spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+
+  --radius-pill: 999px;
+  --radius: 10px;
+  --container: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--cta); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* --------------------------------------------------------------------------
+   Typography
+   -------------------------------------------------------------------------- */
+
+h1, h2, h3 { font-weight: 700; line-height: 1.25; margin: 0 0 var(--space-3); }
+
+h1 { font-size: 2.4rem; letter-spacing: -0.01em; }
+
+h2 {
+  font-size: 1.55rem;
+  margin-top: var(--space-5);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--accent-line);
+}
+
+h3 { font-size: 1.1rem; color: var(--cta-secondary); }
+
+p { margin: 0 0 var(--space-3); color: var(--text); }
+
+.muted { color: var(--text-dim); font-size: 0.9rem; }
+
+/* --------------------------------------------------------------------------
+   Header / nav
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--header-bg);
+  border-bottom: 2px solid var(--accent-line);
+}
+
+/* header row may use a wider container than page content so the full nav fits */
+.site-header .container { max-width: 1280px; }
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 64px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+.logo:hover { text-decoration: none; }
+
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--cta), var(--cta-secondary));
+  display: inline-block;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.main-nav > a,
+.nav-item > a {
+  color: var(--text);
+  font-size: 0.95rem;
+  padding: var(--space-2) var(--space-2);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.main-nav > a:hover,
+.nav-item > a:hover { background: rgba(254, 254, 254, 0.08); text-decoration: none; }
+.main-nav a.is-active { color: var(--cta); }
+
+/* dropdown submenu */
+.nav-item { position: relative; }
+.nav-item > a::after { content: ' ▾'; font-size: 0.7em; opacity: 0.8; }
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background: var(--surface);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+.nav-item:hover .submenu,
+.nav-item:focus-within .submenu { display: block; }
+.submenu a {
+  display: block;
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.submenu a:hover { background: rgba(254, 254, 254, 0.1); text-decoration: none; }
+
+.header-actions { display: flex; align-items: center; gap: var(--space-2); }
+
+/* burger (CSS-only) */
+.nav-toggle { display: none; }
+.burger {
+  display: none;
+  font-size: 1.5rem;
+  color: var(--text);
+  cursor: pointer;
+  margin-left: auto;
+  padding: var(--space-1) var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons — soft, informational CTAs
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: filter 120ms ease, transform 120ms ease;
+}
+.btn:hover { text-decoration: none; filter: brightness(1.06); transform: translateY(-1px); }
+
+.btn-primary { background: var(--cta); color: var(--cta-text); }
+.btn-secondary { background: var(--cta-secondary); color: var(--cta-text); }
+.btn-ghost {
+  background: transparent;
+  color: var(--cta);
+  border-color: var(--cta);
+}
+.btn-sm { padding: 0.4rem 1rem; font-size: 0.78rem; }
+
+.cta-row { margin: var(--space-3) 0 var(--space-4); }
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  background: linear-gradient(160deg, var(--header-bg) 0%, var(--surface-deep) 70%, var(--bg) 100%);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--accent-line);
+}
+
+.hero .lead { font-size: 1.05rem; color: var(--text-dim); max-width: 760px; }
+
+.hero-banners { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); margin-top: var(--space-4); }
+
+/* --------------------------------------------------------------------------
+   Placeholders (.ph) for images / banners
+   -------------------------------------------------------------------------- */
+
+.ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  background:
+    repeating-linear-gradient(45deg, rgba(153, 254, 154, 0.06) 0 12px, transparent 12px 24px),
+    var(--surface-deep);
+  border: 1px dashed var(--accent-line);
+  border-radius: var(--radius);
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: var(--space-3);
+  min-height: 120px;
+}
+.ph-wide { aspect-ratio: 3 / 1; min-height: 180px; max-width: 100%; }
+.ph-square { aspect-ratio: 1 / 1; }
+.ph-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cta);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius-pill);
+  padding: 0 var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   Anchor ToC — "Navigazione"
+   -------------------------------------------------------------------------- */
+
+.toc {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-3) 0 var(--space-4);
+}
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-1) var(--space-4);
+}
+.toc a { color: var(--text); font-size: 0.95rem; }
+.toc a::before { content: '› '; color: var(--cta); }
+.toc a:hover { color: var(--cta); text-decoration: none; }
+
+/* --------------------------------------------------------------------------
+   Striped data tables
+   -------------------------------------------------------------------------- */
+
+.table-wrap { overflow-x: auto; margin: var(--space-3) 0 var(--space-4); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding-bottom: var(--space-2);
+}
+
+th, td {
+  border: 1px solid var(--table-border);
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  background: var(--header-bg);
+  color: var(--text);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+
+tbody tr:nth-child(even) { background: var(--row-even); }
+tbody tr:nth-child(odd) { background: var(--row-odd); }
+
+/* --------------------------------------------------------------------------
+   Cards, info boxes, two-column section media
+   -------------------------------------------------------------------------- */
+
+.section-media {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  margin-bottom: var(--space-3);
+}
+
+.info-box {
+  background: var(--surface-deep);
+  border-left: 4px solid var(--cta);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-3) 0;
+}
+.info-box p:last-child { margin-bottom: 0; }
+
+.bonus-box {
+  background: linear-gradient(135deg, var(--header-bg), var(--surface-deep));
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  margin: var(--space-3) 0 var(--space-4);
+  text-align: center;
+}
+.bonus-box .bonus-amount {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--cta);
+  margin-bottom: var(--space-2);
+}
+.bonus-box .muted { display: block; margin-top: var(--space-2); }
+
+/* pros / cons */
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin: var(--space-3) 0; }
+.pros, .cons {
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-deep);
+}
+.pros { border-top: 3px solid var(--cta); }
+.cons { border-top: 3px solid var(--cta-secondary); }
+.pros ul, .cons ul { margin: 0; padding-left: 1.2rem; }
+.pros li, .cons li { margin-bottom: var(--space-1); }
+
+/* rating */
+.rating-line { display: flex; align-items: baseline; gap: var(--space-2); margin: var(--space-2) 0 var(--space-3); }
+.rating-score { font-size: 2rem; font-weight: 700; color: var(--cta); }
+.rating-stars { color: var(--cta-secondary); letter-spacing: 0.15em; }
+
+/* numbered steps */
+.steps { counter-reset: step; list-style: none; padding: 0; margin: var(--space-3) 0; }
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: var(--space-2) 0 var(--space-2) 3rem;
+  border-bottom: 1px solid rgba(254, 254, 254, 0.08);
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--cta);
+  color: var(--cta-text);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   Game grid — 12 tiles, Play/Demo dual buttons
+   -------------------------------------------------------------------------- */
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+.game-tile {
+  background: var(--surface-deep);
+  border: 1px solid rgba(153, 254, 154, 0.18);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.game-tile .ph { border: none; border-radius: 0; }
+.game-tile-body {
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.game-tile-name { font-weight: 700; font-size: 0.92rem; margin-bottom: var(--space-1); }
+.game-tile-provider { font-size: 0.78rem; color: var(--text-dim); margin-bottom: var(--space-2); }
+/* pin the action row to the bottom so buttons share a baseline across the row,
+   even when a tile name wraps to two lines */
+.game-tile-actions { display: flex; gap: var(--space-2); margin-top: auto; }
+.game-tile-actions .btn { flex: 1; text-align: center; padding: 0.35rem 0; font-size: 0.72rem; }
+
+/* --------------------------------------------------------------------------
+   FAQ
+   -------------------------------------------------------------------------- */
+
+.faq-item {
+  background: var(--surface-deep);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+}
+.faq-item h3 { margin-bottom: var(--space-2); }
+.faq-item p:last-child { margin-bottom: 0; }
+
+/* --------------------------------------------------------------------------
+   Contact form skeleton (contatti)
+   -------------------------------------------------------------------------- */
+
+.form-card {
+  background: var(--surface-deep);
+  border: 1px solid var(--accent-line);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.form-field { display: flex; flex-direction: column; gap: var(--space-1); }
+.form-field-full { grid-column: 1 / -1; }
+
+.form-field label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--accent-line);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { outline: 2px solid var(--cta); outline-offset: 1px; }
+
+.form-field textarea { min-height: 140px; resize: vertical; }
+
+.form-actions { margin-top: var(--space-3); }
+.form-actions .btn { border: none; cursor: pointer; }
+
+/* --------------------------------------------------------------------------
+   Compliance / responsible gambling
+   -------------------------------------------------------------------------- */
+
+
+.compliance-strip {
+  background: var(--surface-deep);
+  border-top: 1px solid var(--accent-line);
+  border-bottom: 1px solid var(--accent-line);
+  padding: var(--space-3) 0;
+  margin-top: var(--space-6);
+}
+.compliance-strip .container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  background: var(--footer-bg);
+  padding: var(--space-5) 0 var(--space-4);
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+.footer-cols {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.footer-cols h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); }
+.footer-cols ul { list-style: none; margin: 0; padding: 0; }
+.footer-cols li { margin-bottom: var(--space-1); }
+.footer-cols a { color: var(--text-dim); }
+.footer-cols a:hover { color: var(--cta); }
+
+.footer-rg {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: rgba(254, 254, 254, 0.04);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.footer-rg .ph { min-height: 72px; width: 72px; flex: none; padding: var(--space-1); font-size: 0.6rem; }
+
+.footer-legal {
+  border-top: 1px solid rgba(254, 254, 254, 0.12);
+  padding-top: var(--space-3);
+  font-size: 0.78rem;
+}
+
+/* --------------------------------------------------------------------------
+   Page wrapper (wireframe shell)
+   -------------------------------------------------------------------------- */
+
+.page { display: none; }
+.page.active { display: block; }
+
+main.content { padding: var(--space-4) 0 var(--space-5); }
+
+/* --------------------------------------------------------------------------
+   Responsive — single breakpoint
+   -------------------------------------------------------------------------- */
+
+/* nav collapses to burger as soon as the full link row no longer fits */
+@media (max-width: 1180px) {
+  .burger { display: block; }
+
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--header-bg);
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--space-3);
+    border-bottom: 2px solid var(--accent-line);
+  }
+  .nav-toggle:checked ~ .main-nav { display: flex; }
+  .submenu {
+    position: static;
+    display: block;
+    box-shadow: none;
+    background: transparent;
+    border: none;
+    padding-left: var(--space-4);
+  }
+  .nav-item > a::after { content: ''; }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.7rem; }
+  h2 { font-size: 1.25rem; }
+
+  .header-inner { gap: var(--space-2); padding: 0 var(--space-3); }
+  .logo { font-size: 1rem; }
+  .logo-mark { width: 24px; height: 24px; }
+  .header-actions { gap: var(--space-1); }
+  .header-actions .btn { padding: 0.35rem 0.7rem; font-size: 0.68rem; }
+  .header-actions .btn-secondary { display: none; }
+
+  /* long informational CTAs must wrap instead of overflowing 390px viewports */
+  .cta-row .btn { white-space: normal; text-align: center; }
+
+  .toc ul { grid-template-columns: 1fr; }
+  .section-media { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .pros-cons { grid-template-columns: 1fr; }
+  .game-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-cols { grid-template-columns: 1fr; gap: var(--space-4); }
+}
